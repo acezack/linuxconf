@@ -1,4 +1,3 @@
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -71,7 +70,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git kubectl ansible)
+plugins=(git kubectl ansible fzf-zsh-plugin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,13 +102,27 @@ source $ZSH/oh-my-zsh.sh
 unset TMOUT
 
 alias anp="ansible-playbook -i ~/code/ansible/inventory.yaml --ask-vault-pass --extra-vars @~/.ansible/vault"
+alias anpc="ansible-playbook -i ~/code/ansible/inventory.yaml --ask-vault-pass --extra-vars @~/.ansible/vault -C"
+alias anpu="ansible-playbook -i ~/code/ansible/inventory.yaml"
+alias anpt="f() { \$anpu /export/home/jakadr01adm/code/ansible/\$@; unset -f f; }; f"
 alias venv="source ~/.venv/bin/activate"
 alias c="pdsh -R ssh -w '10.28.40.[193-206]' "
 alias cs="f(){ pdsh -R ssh -w '10.28.40.[193-206]' \"\$@\" 2>/dev/null; unset -f f; }; f"
 alias ss="systemctl status"
-alias kcp="kubectl -n kube-prometheus"
-alias kcs="kubectl -n psf"
-alias kcm="kubectl -n mongodb"
+alias kgoy="kubectl -oyaml get"
+alias kgpoy="kubectl -oyaml get pod"
+alias kgsoy="kubectl -oyaml get service"
 alias glrb="old_cur=\$(git_current_branch); gco \$(git_main_branch); gl; gco \$old_cur; unset old_cur; grb \$(git_main_branch);"
 alias chrome="chromium-browser"
 alias take="f(){ _ chown -R \$USER:XOS-Users \$@; _ chmod -R 755 \$@; unset -f f; }; f"
+alias kd="kubectl describe"
+alias ke="kubectl edit"
+alias kg="kubectl get"
+alias flo="f(){ for n in \$(find ./); do echo \$n; grep -i \$@ \$n 2>/dev/null; done | less; unset -f f; }; f"
+alias fll="f(){ for n in \$(find ./); do grep -i \$@ \$n 2>/dev/null; if [ \$? -eq 0 ]; then echo \\\\nPATH TO ^: \$n\\\\n\\\\n; fi; done | less; unset -f f; }; f"
+alias fl="f(){ for n in \$(find ./); do grep -i \$@ \$n 2>/dev/null; if [ \$? -eq 0 ]; then echo \\\\nPATH TO ^: \$n\\\\n\\\\n; fi; done; unset -f f; }; f"
+alias al="ansible-lint"
+alias alf="ansible-lint --fix"
+alias alft="ansible-lint -t formatting --fix"
+export ar="/export/home/jakadr01adm/code/ansible"
+alias glot="git --no-pager log --oneline --decorate"

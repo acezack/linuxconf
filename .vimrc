@@ -167,3 +167,5 @@ set expandtab
 "
 hi Comment ctermfg=Lightblue
 hi Constant ctermfg=Red
+let g:indentLine_color_term = 7
+let g:indentLine_char = '|'
